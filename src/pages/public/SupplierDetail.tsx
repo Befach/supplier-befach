@@ -242,15 +242,15 @@ const SupplierDetail = () => {
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-start">
                       <div className="text-left flex-none">
                         <div className="text-sm text-gray-600 mb-1 font-semibold">Founded</div>
-                        <div className="text-lg font-bold text-gray-900">2015</div>
+                        <div className="text-lg font-bold text-gray-900">{supplier.founded !== undefined && supplier.founded !== null && supplier.founded !== '' ? supplier.founded : '-'}</div>
                       </div>
                       <div className="text-left flex-none">
                         <div className="text-sm text-gray-600 mb-1 font-semibold">Total Exports</div>
-                        <div className="text-lg font-bold text-gray-900">50 shipments</div>
+                        <div className="text-lg font-bold text-gray-900">{supplier.total_exports !== undefined && supplier.total_exports !== null && supplier.total_exports !== '' ? `${supplier.total_exports} shipments` : '-'}</div>
                       </div>
                       <div className="text-left flex-none">
                         <div className="text-sm text-gray-600 mb-1 font-semibold">Last Year Exports</div>
-                        <div className="text-lg font-bold text-gray-900">32 shipments</div>
+                        <div className="text-lg font-bold text-gray-900">{supplier.last_year_exports !== undefined && supplier.last_year_exports !== null && supplier.last_year_exports !== '' ? `${supplier.last_year_exports} shipments` : '-'}</div>
                       </div>
                     </div>
                   </div>

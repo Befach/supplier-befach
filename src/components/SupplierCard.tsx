@@ -41,33 +41,33 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
         
         <div className="p-4">
           {/* Company name */}
-          <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">{supplier.name}</h3>
+          <h3 className="text-2xl sm:text-xl font-bold text-gray-900 mb-2 text-center">{supplier.name}</h3>
           
           {/* Location */}
           {supplier.city && (
-            <p className="text-sm text-gray-600 mb-3 text-center">{supplier.city}</p>
+            <p className="text-base sm:text-sm text-gray-600 mb-3 text-center">{supplier.city}</p>
           )}
           
           {/* Description */}
           {supplier.description && (
-            <p className="text-gray-600 mb-3 line-clamp-3 text-sm text-center leading-relaxed">
+            <p className="text-base sm:text-sm text-gray-600 mb-3 line-clamp-3 text-center leading-relaxed">
               {supplier.description}
             </p>
           )}
           
-          {/* Tags after description */}
+          {/* Tags after description (moved below description) */}
           {supplier.categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4 justify-center">
+            <div className="flex flex-wrap gap-3 mb-4 justify-center">
               {supplier.categories.slice(0, 5).map(category => (
                 <span
                   key={category}
-                  className="px-3 py-1.5 bg-orange-50 border border-orange-200 text-orange-700 text-xs rounded-lg font-medium"
+                  className="px-4 py-2 text-base sm:text-xs bg-orange-50 border border-orange-200 text-orange-700 rounded-lg font-semibold"
                 >
                   {category}
                 </span>
               ))}
               {supplier.categories.length > 5 && (
-                <span className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-600 text-xs rounded-lg font-medium">
+                <span className="px-4 py-2 text-base sm:text-xs bg-gray-50 border border-gray-200 text-gray-600 rounded-lg font-semibold">
                   +{supplier.categories.length - 5}
                 </span>
               )}
@@ -79,15 +79,15 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
             <div className="grid grid-cols-3 gap-2 text-center">
               <div>
                 <div className="text-xs text-gray-600 font-semibold mb-1">Founded</div>
-                <div className="text-sm font-bold text-gray-900">2015</div>
+                <div className="text-sm font-bold text-gray-900">{supplier.founded !== undefined && supplier.founded !== null ? supplier.founded : '-'}</div>
               </div>
               <div>
                 <div className="text-xs text-gray-600 font-semibold mb-1">Total Exports</div>
-                <div className="text-sm font-bold text-gray-900">50 shipments</div>
+                <div className="text-sm font-bold text-gray-900">{supplier.total_exports !== undefined && supplier.total_exports !== null ? `${supplier.total_exports} shipments` : '-'}</div>
               </div>
               <div>
                 <div className="text-xs text-gray-600 font-semibold mb-1">Last Year Exports</div>
-                <div className="text-sm font-bold text-gray-900">32 shipments</div>
+                <div className="text-sm font-bold text-gray-900">{supplier.last_year_exports !== undefined && supplier.last_year_exports !== null ? `${supplier.last_year_exports} shipments` : '-'}</div>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
           {/* Action Buttons */}
           <div className="space-y-2">
             <Link to={`/supplier/${supplier.slug}`} className="block">
-              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3">
+              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 text-base sm:py-3 sm:text-sm">
                 View Details
               </Button>
             </Link>
@@ -103,7 +103,7 @@ export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => {
             {supplier.catalogue_file_url && (
               <Button 
                 variant="outline" 
-                className="w-full text-orange-500 border-orange-500 hover:bg-orange-50 font-semibold py-3"
+                className="w-full text-orange-500 border-orange-500 hover:bg-orange-50 font-semibold py-4 text-base sm:py-3 sm:text-sm"
                 onClick={handleCatalogueDownload}
               >
                 <FileText className="w-4 h-4 mr-2 flex-shrink-0" />

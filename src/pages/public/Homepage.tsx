@@ -31,13 +31,18 @@ const Homepage = () => {
 
   // Generate categories dynamically from supplier data
   const categories = useMemo(() => {
-    const uniqueCategories = new Set<string>();
+    const categoryCount: Record<string, number> = {};
     suppliers.forEach(supplier => {
       supplier.categories.forEach(category => {
-        uniqueCategories.add(category);
+        categoryCount[category] = (categoryCount[category] || 0) + 1;
       });
     });
-    return ['All Suppliers', ...Array.from(uniqueCategories).sort()];
+    // Sort categories by count descending
+    const sortedCategories = Object.entries(categoryCount)
+      .sort((a, b) => b[1] - a[1])
+      .map(([category]) => category);
+
+    return ['All Suppliers', ...sortedCategories];
   }, [suppliers]);
 
   // Categories to display based on show more state
@@ -107,7 +112,7 @@ const Homepage = () => {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
             Our Trusted Suppliers
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
             Quality partners that help us deliver excellence across the globe
           </p>
           
@@ -118,7 +123,7 @@ const Homepage = () => {
               placeholder="Search suppliers..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 sm:pl-12 py-2.5 sm:py-3 text-sm sm:text-base border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="pl-10 sm:pl-12 py-3 text-base sm:py-3 sm:text-base border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
           </div>
         </div>
@@ -132,7 +137,7 @@ const Homepage = () => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                className={`px-4 py-2 text-base sm:px-4 sm:py-2 sm:text-sm rounded-full font-semibold transition-all duration-200 whitespace-nowrap ${
                   activeCategory === category
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25'
                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-gray-300'

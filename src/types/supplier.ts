@@ -1,4 +1,3 @@
-
 export interface Supplier {
   id: string;
   name: string;
@@ -13,6 +12,9 @@ export interface Supplier {
   products?: string[];
   partnership_years?: number;
   catalogue_file_url?: string;
+  founded?: number;
+  total_exports?: number;
+  last_year_exports?: number;
   created_at: Date;
   updated_at: Date;
 }

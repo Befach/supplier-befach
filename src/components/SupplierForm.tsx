@@ -36,7 +36,10 @@ export const SupplierForm: React.FC<SupplierFormProps> = ({
     categories: initialData?.categories?.join(', ') || '',
     logo_url: initialData?.logo_url || '',
     partnership_years: initialData?.partnership_years || 10,
-    catalogue_file_url: initialData?.catalogue_file_url || ''
+    catalogue_file_url: initialData?.catalogue_file_url || '',
+    founded: initialData?.founded || '',
+    total_exports: initialData?.total_exports || '',
+    last_year_exports: initialData?.last_year_exports || '',
   });
   const [products, setProducts] = useState<string[]>(initialData?.products || []);
   const [newProduct, setNewProduct] = useState('');
@@ -50,6 +53,9 @@ export const SupplierForm: React.FC<SupplierFormProps> = ({
       .filter(cat => cat.length > 0);
     onSubmit({
       ...formData,
+      founded: formData.founded,
+      total_exports: formData.total_exports,
+      last_year_exports: formData.last_year_exports,
       categories,
       products: products.filter(product => product.trim().length > 0)
     });
@@ -154,6 +160,39 @@ export const SupplierForm: React.FC<SupplierFormProps> = ({
       case 2:
         return (
           <div className="space-y-4">
+            <div>
+              <Label htmlFor="founded">Founded Year</Label>
+              <Input
+                id="founded"
+                type="number"
+                value={formData.founded}
+                onChange={(e) => handleChange('founded', parseInt(e.target.value) || '')}
+                placeholder="2015"
+                min="1800"
+              />
+            </div>
+            <div>
+              <Label htmlFor="total_exports">Total Exports</Label>
+              <Input
+                id="total_exports"
+                type="number"
+                value={formData.total_exports}
+                onChange={(e) => handleChange('total_exports', parseInt(e.target.value) || '')}
+                placeholder="50"
+                min="0"
+              />
+            </div>
+            <div>
+              <Label htmlFor="last_year_exports">Last Year Exports</Label>
+              <Input
+                id="last_year_exports"
+                type="number"
+                value={formData.last_year_exports}
+                onChange={(e) => handleChange('last_year_exports', parseInt(e.target.value) || '')}
+                placeholder="32"
+                min="0"
+              />
+            </div>
             <div>
               <Label htmlFor="partnership_years">Partnership Duration (Years)</Label>
               <Input
